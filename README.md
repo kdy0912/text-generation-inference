@@ -18,6 +18,19 @@ to power Hugging Chat, the Inference API and Inference Endpoint.
 
 </div>
 
+## 安装方法
+
+1. 安装 Rust 和 Protoc
+
+2. 创建一个新的 python 虚拟环境，python 版本选择 3.10
+
+3. 拉取代码并安装
+
+   ```shell
+   git clone https://github.com/kdy0912/text-generation-inference.git
+   cd text-generation-inference
+   make all
+   ```
 ## Table of contents
 
 - [Get Started](#get-started)
