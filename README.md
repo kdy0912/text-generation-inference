@@ -18,19 +18,45 @@ to power Hugging Chat, the Inference API and Inference Endpoint.
 
 </div>
 
+## 关于此分支的介绍
+此分支在 tgi 1.4.2 版本的基础上修改了 makefile 文件，通过一行命令可以直接安装 tgi 以及在部署某些模型所必需的 vllm 和 fast-attn 库（原来的版本在安装时不会下载这些库）
+同时还解决了诸多库之间版本冲突问题
+
+
 ## 安装方法
 
+安装此库需要的 cuda 版本为 12.2
+如果 cuda 版本不对，可以在[nvidia 官网](https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_network)上进行下载
+只需要安装 Base Installer 即可，不要安装 Driver Installer
 1. 安装 Rust 和 Protoc
 
 2. 创建一个新的 python 虚拟环境，python 版本选择 3.10
 
-3. 拉取代码并安装
+3. 拉取代码并安装，直接 make all 即可
 
    ```shell
    git clone https://github.com/kdy0912/text-generation-inference.git
    cd text-generation-inference
    make all
    ```
+
+4. 安装完成后，可运行以下代码进行测试，首先准备好一个下载好的大模型
+
+   ```shell
+   text-generation-launcher --model-id [你的模型路径] --port 8000
+   ```
+
+5. 服务端启动后，可以运行以下代码发送请求，收到请求即为部署成功
+
+   ```shell
+   curl 127.0.0.1:8000/generate \
+       -H 'Content-Type: application/json' \
+       -d '{
+           "inputs":"[你的prompt]",
+           "parameters":{"max_new_tokens":20}
+       }'
+   ```
+
 ## Table of contents
 
 - [Get Started](#get-started)
